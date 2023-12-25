@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C903ACD82B3950CE0028E9D1 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903ACD72B3950CE0028E9D1 /* CoinDataService.swift */; };
+		C903ACDA2B39A43B0028E9D1 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903ACD92B39A43B0028E9D1 /* CoinModel.swift */; };
 		C94B21142B25E55E00AA6653 /* NetworkingTutorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B21132B25E55E00AA6653 /* NetworkingTutorialApp.swift */; };
 		C94B21162B25E55E00AA6653 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B21152B25E55E00AA6653 /* ContentView.swift */; };
 		C94B21182B25E56000AA6653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C94B21172B25E56000AA6653 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		C903ACD72B3950CE0028E9D1 /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
+		C903ACD92B39A43B0028E9D1 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		C94B21102B25E55E00AA6653 /* NetworkingTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94B21132B25E55E00AA6653 /* NetworkingTutorialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTutorialApp.swift; sourceTree = "<group>"; };
 		C94B21152B25E55E00AA6653 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		C94B21262B25E60500AA6653 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C903ACD92B39A43B0028E9D1 /* CoinModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,7 +160,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					C94B210F2B25E55E00AA6653 = {
 						CreatedOnToolsVersion = 14.2;
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C903ACDA2B39A43B0028E9D1 /* CoinModel.swift in Sources */,
 				C903ACD82B3950CE0028E9D1 /* CoinDataService.swift in Sources */,
 				C94B21162B25E55E00AA6653 /* ContentView.swift in Sources */,
 				C94B21282B25EAEA00AA6653 /* CoinsViewModel.swift in Sources */,
@@ -245,6 +249,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -305,6 +310,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
