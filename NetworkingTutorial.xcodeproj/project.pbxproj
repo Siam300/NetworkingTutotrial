@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C903ACD82B3950CE0028E9D1 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903ACD72B3950CE0028E9D1 /* CoinDataService.swift */; };
 		C94B21142B25E55E00AA6653 /* NetworkingTutorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B21132B25E55E00AA6653 /* NetworkingTutorialApp.swift */; };
 		C94B21162B25E55E00AA6653 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B21152B25E55E00AA6653 /* ContentView.swift */; };
 		C94B21182B25E56000AA6653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C94B21172B25E56000AA6653 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C903ACD72B3950CE0028E9D1 /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
 		C94B21102B25E55E00AA6653 /* NetworkingTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94B21132B25E55E00AA6653 /* NetworkingTutorialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTutorialApp.swift; sourceTree = "<group>"; };
 		C94B21152B25E55E00AA6653 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,6 +36,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C903ACD62B3950C00028E9D1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C903ACD72B3950CE0028E9D1 /* CoinDataService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		C94B21072B25E55E00AA6653 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +98,7 @@
 		C94B21232B25E5EC00AA6653 /* All Coins */ = {
 			isa = PBXGroup;
 			children = (
+				C903ACD62B3950C00028E9D1 /* Service */,
 				C94B21262B25E60500AA6653 /* Model */,
 				C94B21252B25E60100AA6653 /* View */,
 				C94B21242B25E5F400AA6653 /* ViewModel */,
@@ -188,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C903ACD82B3950CE0028E9D1 /* CoinDataService.swift in Sources */,
 				C94B21162B25E55E00AA6653 /* ContentView.swift in Sources */,
 				C94B21282B25EAEA00AA6653 /* CoinsViewModel.swift in Sources */,
 				C94B21142B25E55E00AA6653 /* NetworkingTutorialApp.swift in Sources */,
