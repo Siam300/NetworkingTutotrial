@@ -10,10 +10,28 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var viewModel = CoinsViewModel()
     
+    
     var body: some View {
         List {
             ForEach(viewModel.coins) { coin in
-                Text(coin.name)
+                HStack(spacing: 12) {
+                    Text("\(coin.marketCapRank)")
+                        .foregroundColor(.gray)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(coin.name)
+                            .fontWeight(.bold)
+                        
+                        Text(coin.symbol)
+                        
+                    }
+                }
+                .font(.footnote)
+            }
+        }
+        .overlay {
+            if let error = viewModel.errorMessage {
+                Text(error)
             }
         }
     }
