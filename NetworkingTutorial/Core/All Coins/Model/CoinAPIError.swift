@@ -22,6 +22,5 @@ enum CoinAPIError: Error {
         case let .invalidStatusCode(statusCode): return "Invalid status code \(statusCode)"
         case let .unknownError(error): return "An unknown error occuard \(error.localizedDescription)"
         }
-        
     }
 }

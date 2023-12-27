@@ -15,13 +15,22 @@ class CoinDataService {
     func fetchCoins() async throws -> [CoinModel] {
         guard let url = URL(string: urlString) else { return [] }
         
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw CoinAPIError.requestFailed(description: "Request failed")
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw CoinAPIError.invalidStatusCode(description: httpResponse.statusCode)
+        }
+        
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
             let coins = try JSONDecoder().decode([CoinModel].self, from: data)
             return coins
         } catch {
-            print("Debug: Error \(error.localizedDescription)")
-            return []
+            print("Debug: Error \(error)")
+            throw error as? CoinAPIError ?? .unknownError(error: error)
         }
     }
 }
