@@ -9,6 +9,7 @@ import Foundation
 
 class CoinDataService {
     private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en"
+    private let DetailsUrlString = "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false"
     
     //Mark: Async/ Await
     
@@ -33,6 +34,29 @@ class CoinDataService {
             throw error as? CoinAPIError ?? .unknownError(error: error)
         }
     }
+    
+    func fetchCoinDetails(id: String) async throws -> CoinDetailsModel? {
+        guard let url = URL(string: DetailsUrlString) else { return nil }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw CoinAPIError.requestFailed(description: "Request failed")
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw CoinAPIError.invalidStatusCode(description: httpResponse.statusCode)
+        }
+        
+        do {
+            let details = try JSONDecoder().decode(CoinDetailsModel.self, from: data)
+            return details
+        } catch {
+            print("Debug: Error \(error)")
+            throw error as? CoinAPIError ?? .unknownError(error: error)
+        }
+    }
+    
 }
 
 // Mark: Complesion Handler
