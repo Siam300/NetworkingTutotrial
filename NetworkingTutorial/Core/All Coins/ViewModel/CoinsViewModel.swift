@@ -14,10 +14,17 @@ class CoinsViewModel: ObservableObject {
     
     init() {
         //fetchPrice(coin: "bitcoin")
-        fetchCoins()
+        Task {
+            try await fetchCoins()
+        }
     }
     
-    func fetchCoins() {
+    @MainActor
+    func fetchCoins() async throws {
+        self.coins = try await service.fetchCoins()
+    }
+    
+    func fetchCoinsWithCompletionHandler() {
         //        service.fetchCoins { coins, error in
         //            DispatchQueue.main.async {
         //                if let error = error {
@@ -38,5 +45,3 @@ class CoinsViewModel: ObservableObject {
         }
     }
 }
-
-
