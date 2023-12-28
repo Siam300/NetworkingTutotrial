@@ -13,20 +13,26 @@ class CoinDetailsViewModel: ObservableObject {
     @Published var coinDetails: CoinDetailsModel?
     
     init(coinId: String) {
+        print("DEBUG: did init...")
         self.coinId = coinId
-        
-        Task { await fetchCoinDetails() }
+        //NOTE: For some reason this wasnt calling task modifire 2 times in new xcode if this happens then comment this TASK like and use .onapper methon in coinDetailsView
+        //Task { await fetchCoinDetails() }
         
     }
     
     @MainActor
     func fetchCoinDetails() async {
+        //if i need to use .onapper method to prevent api calls 2 times then i need to add delay also
+        print("DEBUG: fetching coins...")
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        print("DEBUG: task woke up...")
+        
         do {
             let details = try await service.fetchCoinDetails(id: coinId)
-            print("Debug: Detais \(details)")
+            print("DEBUG: Detais \(details)")
             self.coinDetails = details
         } catch {
-            print("Debug: Error \(error.localizedDescription)")
+            print("DEBUG: Error \(error.localizedDescription)")
         }
     }
 }
