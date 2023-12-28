@@ -17,12 +17,20 @@ struct CoinDetailsView: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Text(coin.name)
-                Text(": $\(coin.currentPrice)")
+        if let details = viewModel.coinDetails {
+            VStack(alignment: .leading) {
+                Text(details.name)
+                    .fontWeight(.semibold)
+                    .font(.subheadline)
+                
+                Text(details.symbol.uppercased())
+                    .font(.footnote)
+                ScrollView {
+                    Text(details.description.text)
+                        .padding(.vertical)
+                }
             }
-            //Text(coin.description)
+            .padding()
         }
     }
 }
