@@ -23,14 +23,13 @@ class CoinDetailsViewModel: ObservableObject {
     @MainActor
     func fetchCoinDetails() async {
         //if i need to use .onapper method to prevent api calls 2 times then i need to add delay also
-        print("DEBUG: fetching coins...")
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-        print("DEBUG: task woke up...")
+//        print("DEBUG: fetching coins...")
+//        try? await Task.sleep(nanoseconds: 2_000_000_000)
+//        print("DEBUG: task woke up...")
         
         do {
-            let details = try await service.fetchCoinDetails(id: coinId)
-            print("DEBUG: Detais \(details)")
-            self.coinDetails = details
+            self.coinDetails = try await service.fetchCoinDetails(id: coinId)
+            //print("DEBUG: Detais \(details)")
         } catch {
             print("DEBUG: Error \(error.localizedDescription)")
         }
