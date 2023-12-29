@@ -7,48 +7,59 @@
 
 import Foundation
 
-protocol HTTPDataDownloader {
-    func fetchData<T: Decodable>(as type: T.Type, endpoint: String) async throws -> T
-}
-
-extension HTTPDataDownloader {
-    func fetchData<T: Decodable>(as type: T.Type, endpoint: String) async throws -> T {
-        guard let url = URL(string: endpoint) else {
-            throw CoinAPIError.requestFailed(description: "Invalid URL")
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw CoinAPIError.requestFailed(description: "Request failed")
-        }
-        
-        guard httpResponse.statusCode == 200 else {
-            throw CoinAPIError.invalidStatusCode(description: httpResponse.statusCode)
-        }
-        
-        do {
-            return try JSONDecoder().decode(type.self, from: data)
-        } catch {
-            print("Debug: Error \(error)")
-            throw error as? CoinAPIError ?? .unknownError(error: error)
-        }
-    }
-}
-
 class CoinDataService: HTTPDataDownloader {
-    private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en"
     
     //Mark: Async/ Await
     
     func fetchCoins() async throws -> [CoinModel] {
-        return try await fetchData(as: [CoinModel].self, endpoint: urlString)
+        guard let endpoint = allCoinsURLString else {
+            throw CoinAPIError.requestFailed(description: "Invalid API")
+        }
+        return try await fetchData(as: [CoinModel].self, endpoint: endpoint)
     }
     
     func fetchCoinDetails(id: String) async throws -> CoinDetailsModel? {
-        let detailsUrlString = "https://api.coingecko.com/api/v3/coins/\(id)?localization=false&tickers=false"
+        guard let endpoint = coinDetailsURLString(id: id) else {
+            throw CoinAPIError.requestFailed(description: "Invalid API")
+        }
+        return try await fetchData(as: CoinDetailsModel.self, endpoint: endpoint)
+    }
+    
+    //Mark:   URL Components Refactor
+    
+    private var baseUrlComponents: URLComponents {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.coingecko.com"
+        components.path = "/api/v3/coins/"
         
-        return try await fetchData(as: CoinDetailsModel.self, endpoint: detailsUrlString)
+        return components
+    }
+    
+    private var allCoinsURLString: String? {
+        var components = baseUrlComponents
+        components.path += "markets"
+        
+        components.queryItems = [
+            .init(name: "vs_currency", value: "usd"),
+            .init(name: "order", value: "market_cap_desc"),
+            .init(name: "per_page", value: "100"),
+            .init(name: "page", value: "1"),
+            .init(name: "price_change_percentage", value: "24h")
+        ]
+        
+        return components.url?.absoluteString
+    }
+    
+    private func coinDetailsURLString(id: String) -> String? {
+        var components = baseUrlComponents
+        components.path += "\(id)"
+        
+        components.queryItems = [
+            .init(name: "localization", value: "false")
+        ]
+        
+        return components.url?.absoluteString
     }
 }
 
@@ -56,7 +67,7 @@ class CoinDataService: HTTPDataDownloader {
 
 extension CoinDataService {
     func fetchCoinsWithResult(completion: @escaping(Result<[CoinModel], CoinAPIError>) -> Void) {
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: allCoinsURLString ?? "") else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
