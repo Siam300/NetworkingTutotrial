@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+//    @EnvironmentObject var viewModel: CoinsViewModel //alternate
+    
     private let service: CoinDataService
     @StateObject var viewModel: CoinsViewModel
     
@@ -37,6 +39,10 @@ struct ContentView: View {
                     }
                 }
             }
+//            .navigationDestination(for: CoinModel.self, destination: { coin in
+//                CoinDetailsView(coin: coin) 
+//            }) //alternate
+            
             .navigationDestination(for: CoinModel.self, destination: { coin in
                 CoinDetailsView(coin: coin, service: service)
             })
@@ -54,3 +60,9 @@ struct ContentView_Previews: PreviewProvider {
         ContentView(service: CoinDataService())
     }
 }
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//} //alternate

@@ -14,7 +14,6 @@ class CoinsViewModel: ObservableObject {
     
     init(service: CoinDataService) {
         self.service = service
-        //fetchPrice(coin: "bitcoin")
         Task { await fetchCoins() }
     }
     

@@ -9,8 +9,16 @@ import SwiftUI
 
 struct CoinDetailsView: View {
     let coin: CoinModel
+    
+//    @EnvironmentObject var viewModel: CoinsViewModel //alternate
+//    
+//    init(coin: CoinModel) {
+//        self.coin = coin
+//    } //alternate
+    
+    @State private var task: Task<(), Never>? //to cancel unneccesary api calls using .onappear
+    
     @ObservedObject var viewModel: CoinDetailsViewModel
-    //@State private var task: Task<(), Never>? //to cancel unneccesary api calls using .onappear
     
     init(coin: CoinModel, service: CoinDataService) {
         self.coin = coin
@@ -34,8 +42,9 @@ struct CoinDetailsView: View {
         }
         .padding()
         
-        //best method to prevent unneccesary api calls
+        //best method to prevent unneccesary api calls code is more cleanner
         .task {
+//            await viewModel.fetchCoinDetails(coinId: coin.id) //alternate
             await viewModel.fetchCoinDetails()
         }
         //---------00---------//
