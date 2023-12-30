@@ -19,10 +19,20 @@ class CoinDataService: HTTPDataDownloader {
     }
     
     func fetchCoinDetails(id: String) async throws -> CoinDetailsModel? {
+        if let cached = CoinDetailsCache.shared.get(for: id) {
+            print("DEBUG: Got details from cache")
+            return cached
+        }
+        
         guard let endpoint = coinDetailsURLString(id: id) else {
             throw CoinAPIError.requestFailed(description: "Invalid API")
         }
-        return try await fetchData(as: CoinDetailsModel.self, endpoint: endpoint)
+        
+        let details = try await fetchData(as: CoinDetailsModel.self, endpoint: endpoint)
+        print("DEBUG: Got details from API")
+        CoinDetailsCache.shared.set(details, forKey: id)
+        
+        return details
     }
     
     //Mark:   URL Components Refactor

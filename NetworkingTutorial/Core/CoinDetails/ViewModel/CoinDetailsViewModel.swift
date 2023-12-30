@@ -13,7 +13,6 @@ class CoinDetailsViewModel: ObservableObject {
     @Published var coinDetails: CoinDetailsModel?
     
     init(coinId: String) {
-        print("DEBUG: did init...")
         self.coinId = coinId
         //NOTE: For some reason this wasnt calling task modifire 2 times in new xcode if this happens then comment this TASK like and use .onapper methon in coinDetailsView
         //Task { await fetchCoinDetails() }
