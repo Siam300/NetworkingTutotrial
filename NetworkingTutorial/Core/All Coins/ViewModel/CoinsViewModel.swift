@@ -10,9 +10,10 @@ import Foundation
 class CoinsViewModel: ObservableObject {
     @Published var coins = [CoinModel] ()
     @Published var errorMessage: String?
-    private let service = CoinDataService()
+    private let service: CoinDataService
     
-    init() {
+    init(service: CoinDataService) {
+        self.service = service
         //fetchPrice(coin: "bitcoin")
         Task { await fetchCoins() }
     }

@@ -12,9 +12,9 @@ struct CoinDetailsView: View {
     @ObservedObject var viewModel: CoinDetailsViewModel
     //@State private var task: Task<(), Never>? //to cancel unneccesary api calls using .onappear
     
-    init(coin: CoinModel) {
+    init(coin: CoinModel, service: CoinDataService) {
         self.coin = coin
-        self.viewModel = CoinDetailsViewModel(coinId: coin.id)
+        self.viewModel = CoinDetailsViewModel(coinId: coin.id, service: service)
     }
     
     var body: some View {

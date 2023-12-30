@@ -8,11 +8,12 @@
 import Foundation
 
 class CoinDetailsViewModel: ObservableObject {
-    private let service = CoinDataService()
+    private let service: CoinDataService
     private let coinId: String
     @Published var coinDetails: CoinDetailsModel?
     
-    init(coinId: String) {
+    init(coinId: String, service: CoinDataService) {
+        self.service = service
         self.coinId = coinId
         //NOTE: For some reason this wasnt calling task modifire 2 times in new xcode if this happens then comment this TASK like and use .onapper methon in coinDetailsView
         //Task { await fetchCoinDetails() }
