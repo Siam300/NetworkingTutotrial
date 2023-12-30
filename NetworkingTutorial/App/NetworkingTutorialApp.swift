@@ -13,6 +13,7 @@ struct NetworkingTutorialApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            ContentView(service: MockCoinService())
             ContentView(service: CoinDataService())
 //            ContentView()
 //                .environmentObject(viewModel) //alternate

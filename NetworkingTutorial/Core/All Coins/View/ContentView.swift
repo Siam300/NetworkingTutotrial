@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
 //    @EnvironmentObject var viewModel: CoinsViewModel //alternate
     
-    private let service: CoinDataService
+    private let service: CoinServiceProtocol
     @StateObject var viewModel: CoinsViewModel
     
-    init(service: CoinDataService) {
+    init(service: CoinServiceProtocol) {
         self.service = service
         self._viewModel = StateObject(wrappedValue: CoinsViewModel(service: service))
     }
@@ -57,7 +57,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(service: CoinDataService())
+        ContentView(service: CoinServiceProtocol.self as! CoinServiceProtocol) //service: CoinServiceProtocol()
     }
 }
 

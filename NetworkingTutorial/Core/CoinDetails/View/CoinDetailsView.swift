@@ -20,7 +20,7 @@ struct CoinDetailsView: View {
     
     @ObservedObject var viewModel: CoinDetailsViewModel
     
-    init(coin: CoinModel, service: CoinDataService) {
+    init(coin: CoinModel, service: CoinServiceProtocol) {
         self.coin = coin
         self.viewModel = CoinDetailsViewModel(coinId: coin.id, service: service)
     }
