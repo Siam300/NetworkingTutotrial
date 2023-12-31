@@ -8,12 +8,19 @@
 import Foundation
 
 class MockCoinService: CoinServiceProtocol {
+    
+    var mockData: Data?
+    var mockError: CoinAPIError?
+    
     func fetchCoins() async throws -> [CoinModel] {
-        let bitcoin = CoinModel(id: "bitcoin", name: "Bitcoin", symbol: "BTC", currentPrice: 26000, marketCapRank: 1)
-        let citcoin = CoinModel(id: "citcoin", name: "Citcoin", symbol: "CTC", currentPrice: 25000, marketCapRank: 2)
-        let ditcoin = CoinModel(id: "ditcoin", name: "Ditcoin", symbol: "DTC", currentPrice: 24000, marketCapRank: 3)
+        if let mockError { throw mockError }
         
-        return [bitcoin, citcoin, ditcoin]
+        do {
+            let coins = try JSONDecoder().decode([CoinModel].self, from: mockData ?? mockCoinsData_marketCapDesc)
+            return coins
+        } catch {
+            throw error as? CoinAPIError ?? .unknownError(error: error)
+        }
     }
     
     func fetchCoinDetails(id: String) async throws -> CoinDetailsModel? {
