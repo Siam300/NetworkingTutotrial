@@ -27,13 +27,8 @@ struct ContentView: View {
                             Text("\(coin.marketCapRank)")
                                 .foregroundColor(.gray)
 
-                            AsyncImage(url: URL(string: coin.image)) { image in
-                                image
-                                    .resizable()
-                                    .frame(width: 32, height: 32)
-                            } placeholder: {
-                                EmptyView()
-                            }
+                            CoinImageView(url: coin.image)
+                                .frame(width: 32, height: 32)
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(coin.name)
